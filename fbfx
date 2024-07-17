@@ -1,0 +1,24 @@
+import requests
+from random import uniform, choice
+import time
+ 
+def fetch(url, headers, proxies):
+    time.sleep(uniform(1, 3))  # 随机延迟
+    response = requests.get(url, headers=headers, proxies=proxies)
+    return response
+ 
+# 设置请求头
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Referer': 'http://example.com',
+    'Accept-Language': 'en-US,en;q=0.9',
+}
+ 
+# 设置代理池
+proxy_list = ['http://proxy1', 'http://proxy2', 'http://proxy3']
+ 
+url = 'http://example.com'
+proxies = {'http': choice(proxy_list)}
+ 
+response = fetch(url, headers, proxies)
+print(response.text)

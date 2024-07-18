@@ -1,0 +1,29 @@
+    # 下落动画  
+        if position:  
+            for index in range(0, 9):  
+                clock.tick(20)  
+                for pos in position:  
+                    self.draw_brick(pos[0], pos[1])  
+                    if pos in ice_position:  
+                        Element(Element.ice_format % index, (pos[0], pos[1])).draw(self.screen)  
+                    Element(Element.boom_format % index, (pos[0], pos[1])).draw(self.screen)  
+                    pygame.display.flip()  
+
+        # 实现下落  
+        for i in range(self.row, self.row + self.height):  
+            brick_position = []  
+            fall_animal_list = []  
+            speed = [0, 1]  
+
+            # 收集需要下落的动物的位置信息  
+            for j in range(self.col, self.col + self.width):  
+                if self.animal[i][j] == -2:  
+                    x, y = self.rc_xy(i, j)  
+                    if self.ice_list[i][j] == 1:  
+                        play_sound(Sounds.ICE_BREAKING)  
+                        self.ice_num += 1  
+                        self.ice_list[i][j] = -1  
+
+                    brick_position.append((x, y))  
+
+ 
